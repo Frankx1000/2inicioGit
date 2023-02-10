@@ -12,8 +12,8 @@ const forwardBtn=document.querySelector('.forward-btn')
 const backwardBtn=document.querySelector('.backward-btn')
 // console.log('SeekBar',disk)
 
-playBtn.addEventListener('click',()=>{
-    if(playBtn.className.includes('pause')){
+playBtn.addEventListener('click', () => {
+    if (playBtn.className.includes('pause')) {
         music.play()
     }else{
         music.pause()
@@ -24,47 +24,47 @@ playBtn.addEventListener('click',()=>{
 
 const setMusic = (i) => {
     seekBar.value = 0
-    let song=songs[i]
-    currentMusic=i
+    let song = songs[i]
+    currentMusic = i
     music.src = song.path
     songName.innerHTML=song.name
     artistName.innerHTML=song.artist
     disk.style.backgroundImage=`url('${song.cover}')`
     currentTime.innerHTML='00:00'
     //Ponemos un delay
-    setTimeout(()=>{
+    setTimeout(() => {
         seekBar.max = music.duration
-        console.log('duration',music.duration)
-        musicDuration.innerHTML=formatTime(music.duration)
-    },700)
+        console.log('duracion', music.duration)
+        musicDuration.innerHTML = formatTime(music.duration)
+    }, 700)
 }
 
 setMusic(0)
 
-const formatTime=(time) => {
-    let min =Math.floor(time/60)
-    if(min < 10){
-        min = `0${min}`
+const formatTime = (time) => {
+    let min = Math.floor(time / 60)
+    if(min < 10) {
+        min = `0${ min }`
     }
-    let sec =Math.floor(time % 60)
-    if(sec < 10){
-        sec = `0${sec}`
+    let sec = Math.floor(time % 60)
+    if(sec < 10) {
+        sec = `0${ sec }`
     }
-    return `${min} : ${sec}`
+    return `${ min } : ${ sec }`
 }
 
 //Trabajar con el seek bar
 setInterval(() => {
     seekBar.value=music.currentTime
     currentTime.innerHTML=formatTime(music.currentTime)
-    if (Math.floor(music.currentTime)=== Math.floor(seekBar.max)){
+    if (Math.floor(music.currentTime) === Math.floor(seekBar.max)) {
         forwardBtn.click()
     }
 },1000)
 
 //Funciones para adelantar y atrasar
 forwardBtn.addEventListener('click', () => {
-    if(currentMusic >= songs.length - 1){
+    if( currentMusic >= songs.length - 1) {
         currentMusic = 0
     } else {
         currentMusic++
@@ -74,7 +74,7 @@ forwardBtn.addEventListener('click', () => {
 })
 
 backwardBtn.addEventListener('click', () => {
-    if(currentMusic >= 0 ){
+    if( currentMusic <= 0){
         currentMusic = songs.length - 1
     } else {
         currentMusic--
